@@ -1,0 +1,15 @@
+repos:
+  - repo: local
+    hooks:
+      - id: pip-freeze
+        name: pip freeze
+        entry: bash -c 'pip freeze > requirements.txt'
+        language: system
+        pass_filenames: false
+        always_run: true
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
