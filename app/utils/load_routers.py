@@ -16,12 +16,13 @@ def load_routers(app: FastAPI, router_dir: str,
     Recursively load all routers in the specified directory.
 
     Args:
-    app (FastAPI): The FastAPI application instance.
-    router_dir (str): The directory to search for router files.
-    file_extension (str, optional): The file extension to consider for router files. Defaults to '.py'.
+        app (FastAPI): The FastAPI application instance.
+        router_dir (str): The directory to search for router files.
+        file_extension (str, optional): The file extension to consider for
+         router files. Defaults to '.py'.
 
-    Example usage:
-    load_routers(app, 'path/to/router_directory')
+    Examples:
+        >>> load_routers(app, 'path/to/router_directory')
     '''
     for root, _, files in os.walk(router_dir):
         for filename in files:

@@ -9,16 +9,17 @@ def mega_bytes_to_bytes(mega_bytes: int):
 
 def validate_file(file: UploadFile, max_size: int,  allowed_types: Set[str]):
     """
-    Validates the size and type of an uploaded file.
+    Validate the size and type of an uploaded file.
 
     Args:
-    file (UploadFile): The file uploaded by the user.
-    max_size (int): Maximum allowed file size in megabytes.
-    allowed_types (set): Set of allowed MIME types.
+        file (UploadFile): The file uploaded by the user.
+        max_size (int): Maximum allowed file size in megabytes.
+        allowed_types (set): Set of allowed MIME types.
 
     Raises:
-    HTTPException: If the file is too large, the file type is not supported, or an error occurs during validation.
+        HTTPException: If the file is too large, the file type is not supported, or an error occurs during validation.
     """
+
     # Convert max size to bytes
     max_size_bytes = mega_bytes_to_bytes(max_size)
 

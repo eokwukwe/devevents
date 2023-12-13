@@ -11,6 +11,8 @@ from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from app.utils import load_routers, config
 from app.utils import custom_responses, constants
+from app.middlewares.rate_limiter import RateLimitMiddleware
+from app.utils.rate_limiter import RateLimiter
 
 
 # models.Base.metadata.create_all(bind=connection.engine)
@@ -64,9 +66,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(
+    RateLimitMiddleware,
+    rate_limiter=RateLimiter(),
+)
+
 # Load the routers
 current_dir_path = os.path.dirname(os.path.abspath(__file__))
 router_dir = os.path.join(current_dir_path, 'routers')
 
 load_routers.load_routers(app=app, router_dir=router_dir)
-

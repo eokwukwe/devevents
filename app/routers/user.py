@@ -13,7 +13,7 @@ from app.utils.auth_checker import get_current_user, delete_token
 
 router = APIRouter(
     prefix="/users",
-    tags=["users"],
+    tags=["users"]
 )
 
 # Dependency for getting a user resource

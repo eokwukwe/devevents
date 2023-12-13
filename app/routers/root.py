@@ -17,7 +17,7 @@ async def root(background_tasks: BackgroundTasks, request: Request):
         subtype=email.MessageType.html
     )
 
-    background_tasks.add_task(
-        email.email_client.send_message, message, template_name="attendee.html")
+    # background_tasks.add_task(
+    #     email.email_client.send_message, message, template_name="attendee.html")
     # await email.email_client.send_message(message, template_name="attendee.html")
     return {"message": "Hello World", "base_url": request.base_url._url}

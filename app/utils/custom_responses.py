@@ -8,14 +8,15 @@ def validation_error_response(error: ValidationError) -> Dict[str, str]:
     """
     Custom validation error response for pydantic ValidationError.
 
-    Example:
-    {
-        "title": "Title is required",
-        "content": "Content is required"
-    }
+    Args:
+        error `(ValidationError)`: ValidationError object
 
-    :param error: ValidationError object
-    :return: Dict[str, str]
+    Returns: 
+        `Dict[str, str]`: A dictionary of errors
+
+    Examples:
+        >>> validation_error_response(error)
+        { "field_name": "error_message" }
     """
     response = {}
 
@@ -41,7 +42,10 @@ def http_exception_response(exce: HTTPException):
     elif (exce.status_code == 401 or exce.status_code == 403):
         content = {"message": exce.detail or messages[exce.status_code]}
     else:
-        content = {"message": messages[exce.status_code] or exce.detail}
+        content = {
+            "message": exce.status_code
+            in messages and messages[exce.status_code] or exce.detail
+        }
 
     return JSONResponse(
         status_code=exce.status_code,

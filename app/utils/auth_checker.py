@@ -27,6 +27,13 @@ def token_serializer(secret: str, salt: str = 'authtoken'):
 def create_token(user_id: int, db: Session):
     '''
     Create a token for the user and return it.
+
+    Args:
+        user_id (int): The user's id.
+        db (Session): The database session.
+
+    Returns:
+        str: The token.
     '''
     serializer = token_serializer(settings.secret_key)
     token = serializer.dumps(user_id)
@@ -53,8 +60,15 @@ def delete_token(user: user_schema.UserBase, db: Session):
 
 def validate_token(token: str, db: Session):
     '''
-    Validate the token by loading it and checking if it's expired. If it's
-    valid, return the user.
+    Validate the token by loading it and checking if it's expired. 
+    If it's valid, return the user.
+
+    Args:
+        token (str): The token.
+        db (Session): The database session.
+
+    Returns:
+        User: The user.
     '''
     serializer = token_serializer(settings.secret_key)
     try:
