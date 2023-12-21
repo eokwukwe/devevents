@@ -30,7 +30,7 @@ def auth_user_events(user: models.User = Depends(get_current_user)):
 
 
 @router.post(
-    '/', status_code=status.HTTP_201_CREATED, response_model=user_schema.UserOut
+    '', status_code=status.HTTP_201_CREATED, response_model=user_schema.UserOut
 )
 async def create_user(payload: user_schema.UserCreate,
                       db: Session = Depends(get_db),
@@ -56,7 +56,7 @@ def get_user(user: models.User = Depends(fetch_user),
     return user
 
 
-@router.get('/', response_model=List[user_schema.UserOut])
+@router.get('', response_model=List[user_schema.UserOut])
 def get_users(db: Session = Depends(get_db), limit: int = 10, skip: int = 0):
     users = db.query(models.User).limit(limit).offset(skip).all()
     return users

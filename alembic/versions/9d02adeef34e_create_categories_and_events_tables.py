@@ -38,6 +38,8 @@ def upgrade() -> None:
                     sa.Column('description', sa.String(), nullable=False),
                     sa.Column('cover_image', sa.String(), nullable=True),
                     sa.Column('venue', sa.String(), nullable=False),
+                    sa.Column('attendee_total', sa.Integer(),
+                              nullable=False, default=0),
                     sa.Column('venue_lat', sa.Float(), nullable=False),
                     sa.Column('venue_lng', sa.Float(), nullable=False),
                     sa.Column('date', sa.DateTime(), nullable=False),

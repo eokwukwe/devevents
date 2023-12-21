@@ -3,6 +3,8 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from unittest.mock import MagicMock
+from app.middlewares.rate_limiter import RateLimiter
 
 from app.main import app
 from app.utils import config, hashing
@@ -208,3 +210,7 @@ def unauth_user_events(session, faker, unauthed_user, event_categories):
         add_event_attendee(session, event, unauthed_user)
 
     return events
+
+
+# Mock the RateLimiter to bypass rate limiting during tests
+RateLimiter.__call__ = MagicMock()
