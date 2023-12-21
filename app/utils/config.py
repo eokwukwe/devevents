@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     mail_password: str = ''
     mail_port: int = 2525
     mail_server: str = ''
+    google_api_key: str = ''
 
     model_config = SettingsConfigDict(env_file=".env")
 
