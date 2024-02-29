@@ -1,7 +1,7 @@
 import { test } from '@japa/runner'
 
 test.group('Home', () => {
-  test('example test', async ({ client }) => {
+  test('Home route', async ({ client }) => {
     const res = await client.get('/')
 
     res.assertStatus(200)

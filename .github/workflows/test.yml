@@ -1,0 +1,52 @@
+name: AdonisTests
+
+on:
+  push:
+    branches:
+      - adonisjs
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '>=20.0.0'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        env:
+          DB_CONNECTION: pg
+          DB_HOST: localhost
+          APP_KEY: a1b2c3d4e5f6g7h8i9j0
+          DB_PORT: 5432
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_DATABASE: test
+          PORT: 3232
+          NODE_ENV: testing
+          HOST: localhost
+          LOG_LEVEL: debug
+        run: npm run test
