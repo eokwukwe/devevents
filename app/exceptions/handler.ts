@@ -1,3 +1,4 @@
+import { errors } from '@adonisjs/auth'
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 
@@ -13,6 +14,30 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
+    if (error instanceof errors.E_INVALID_CREDENTIALS) {
+      return ctx.response.unprocessableEntity({ message: error.message })
+    }
+
+    if (error instanceof errors.E_UNAUTHORIZED_ACCESS) {
+      return ctx.response.unauthorized({ message: error.message })
+    }
+
+    // @ts-ignore
+    if (error.code === 'E_VALIDATION_ERROR') {
+      const er = {
+        status: 422,
+        code: 'E_VALIDATION_ERROR',
+        // @ts-ignore
+        messages: error.messages.reduce((acc, curr) => {
+          acc[curr.field] = curr.message
+          return acc
+        }, {}),
+      }
+
+      // @ts-ignore
+      return super.handle(er, ctx)
+    }
+
     return super.handle(error, ctx)
   }
 
