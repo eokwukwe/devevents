@@ -3,6 +3,7 @@ import { middleware } from './kernel.js'
 
 const LoginController = () => import('#controllers/auth/login_controller')
 const UsersController = () => import('#controllers/users/users_controller')
+const CategoriesController = () => import('#controllers/events/categories_controller')
 
 router.get('/', async () => {
   return {
@@ -12,6 +13,8 @@ router.get('/', async () => {
 
 // Auth resource
 router.post('/auth/login', [LoginController]).as('auth.login')
+
+router.get('/events/categories', [CategoriesController, 'index']).as('events.categories')
 
 // Users resource
 router
