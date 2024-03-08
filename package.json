@@ -57,6 +57,7 @@
     "@adonisjs/core": "^6.2.2",
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/lucid": "^20.1.0",
+    "@googlemaps/google-maps-services-js": "^3.3.42",
     "@vinejs/vine": "^1.7.1",
     "better-sqlite3": "^9.4.3",
     "luxon": "^3.4.4",

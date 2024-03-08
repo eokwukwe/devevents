@@ -20,7 +20,7 @@ test.group('View User Resource', (group) => {
   })
 
   test('get all users', async ({ client, assert }) => {
-    const res = await client.get(`/users`).loginAs(user)
+    const res = await client.get(`/users?page=1&limit=20&sort_by=desc`).loginAs(user)
 
     res.assertStatus(200)
 

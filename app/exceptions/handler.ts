@@ -14,12 +14,19 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
+    // console.log({ error })
+
     if (error instanceof errors.E_INVALID_CREDENTIALS) {
       return ctx.response.unprocessableEntity({ message: error.message })
     }
 
     if (error instanceof errors.E_UNAUTHORIZED_ACCESS) {
       return ctx.response.unauthorized({ message: error.message })
+    }
+
+    // @ts-ignore
+    if (error.code === 'E_ROW_NOT_FOUND') {
+      return ctx.response.notFound({ message: 'Resource not found' })
     }
 
     // @ts-ignore

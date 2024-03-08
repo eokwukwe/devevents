@@ -12,6 +12,8 @@ import { defineConfig } from '@adonisjs/core/http'
  */
 export const appKey = new Secret(env.get('APP_KEY'))
 
+export const googleAPIKey = env.get('GOOGLE_MAPS_API_KEY')
+
 /**
  * The configuration settings used by the HTTP server
  */

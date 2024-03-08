@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
 
 import User from '#models/user/index'
 import Category from '#models/event/category'
@@ -16,28 +16,28 @@ export default class Event extends BaseModel {
   declare description: string
 
   @column()
-  declare cover_image: string | null
+  declare coverImage: string | null
 
   @column()
   declare venue: string
 
   @column()
-  declare attendee_total: number
+  declare attendeeTotal: number
 
   @column()
-  declare venue_lat: number
+  declare venueLat: number
 
   @column()
-  declare venue_lng: number
+  declare venueLng: number
 
   @column.dateTime()
   declare date: DateTime
 
   @column()
-  declare user_id: number
+  declare userId: number
 
   @column()
-  declare category_id: number
+  declare categoryId: number
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -50,4 +50,13 @@ export default class Event extends BaseModel {
 
   @belongsTo(() => Category)
   declare category: BelongsTo<typeof Category>
+
+  @manyToMany(() => User, {
+    localKey: 'id',
+    relatedKey: 'id',
+    pivotForeignKey: 'event_id',
+    pivotTable: 'event_attendees',
+    pivotRelatedForeignKey: 'user_id',
+  })
+  declare attendees: ManyToMany<typeof User>
 }
